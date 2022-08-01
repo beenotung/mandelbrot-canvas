@@ -1,3 +1,5 @@
+console.log('git repo: https://github.com/beenotung/mandelbrot-canvas')
+
 const { random, floor, min, max, sqrt, pow, exp, E, log } = Math
 const win = window as any
 
