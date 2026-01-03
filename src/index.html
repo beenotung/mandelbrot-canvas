@@ -9,6 +9,73 @@
   </head>
   <body>
     <canvas id="main"></canvas>
+    <div id="controls">
+      <div class="control-group">
+        <label for="iterations">Iterations:</label>
+        <button id="iterations-minus">-</button>
+        <input type="number" id="iterations" min="2" step="10" value="1024" />
+        <button id="iterations-plus">+</button>
+      </div>
+      <div class="control-group">
+        <label for="auto-adjust">Auto-adjust with zoom:</label>
+        <input type="checkbox" id="auto-adjust" checked />
+      </div>
+      <div class="control-group">
+        <label for="show-lines">Show center lines:</label>
+        <input type="checkbox" id="show-lines" />
+      </div>
+      <div class="control-group">
+        <label for="color-theme">Color theme:</label>
+        <select id="color-theme">
+          <option value="red">Red</option>
+          <option value="purple">Purple</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="show-shortcuts">Show shortcuts:</label>
+        <input type="checkbox" id="show-shortcuts" />
+      </div>
+      <div class="control-group">
+        <label>Offset X: <span id="offset-x">0.000</span></label>
+      </div>
+      <div class="control-group">
+        <label>Offset Y: <span id="offset-y">0.000</span></label>
+      </div>
+      <div class="control-group">
+        <label>Zoom: <span id="zoom-level">2.000</span></label>
+      </div>
+      <div class="control-group">
+        <label>Iterations: <span id="current-iterations">1000</span></label>
+      </div>
+      <div class="control-group">
+        <button id="reset-view">Reset View</button>
+      </div>
+
+      <!-- Keyboard Shortcuts Help -->
+      <div id="shortcuts-help" class="shortcuts-overlay" style="display: none">
+        <div class="shortcuts-content">
+          <h3>Keyboard Shortcuts</h3>
+          <div class="shortcuts-grid">
+            <div class="shortcut-group">
+              <h4>Navigation</h4>
+              <div class="shortcut-item"><kbd>←↑→↓</kbd> Pan</div>
+              <div class="shortcut-item"><kbd>Click</kbd> Pan to point</div>
+            </div>
+            <div class="shortcut-group">
+              <h4>Zoom</h4>
+              <div class="shortcut-item"><kbd>Wheel</kbd> Zoom in/out</div>
+              <div class="shortcut-item"><kbd>+</kbd> Zoom in</div>
+              <div class="shortcut-item"><kbd>-</kbd> Zoom out</div>
+            </div>
+            <div class="shortcut-group">
+              <h4>Iterations</h4>
+              <div class="shortcut-item"><kbd>[</kbd> Half iterations</div>
+              <div class="shortcut-item"><kbd>]</kbd> Double iterations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="main.js"></script>
   </body>
 </html>
