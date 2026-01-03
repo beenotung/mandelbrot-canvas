@@ -15,5 +15,10 @@
     "ts-node": "^10.8.1",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
