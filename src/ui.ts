@@ -1,4 +1,4 @@
-import { state, getMaxI, ColorTheme } from './storage.js'
+import { state, getMaxI, ColorTheme, updateIterationsForZoom } from './storage.js'
 
 // Import functions that need to be called from event handlers
 let nextEpochCallback: () => void
@@ -31,6 +31,11 @@ export let dom = {
   ) as HTMLInputElement,
   shortcutsHelp: document.getElementById('shortcuts-help') as HTMLDivElement,
   resetViewBtn: document.getElementById('reset-view') as HTMLButtonElement,
+  // Mobile controls
+  togglePanelBtn: document.getElementById('toggle-panel') as HTMLButtonElement,
+  zoomInBtn: document.getElementById('zoom-in') as HTMLButtonElement,
+  zoomOutBtn: document.getElementById('zoom-out') as HTMLButtonElement,
+  controlsPanel: document.getElementById('controls') as HTMLDivElement,
 }
 
 // Function to update display values
@@ -127,6 +132,29 @@ export function setupEventListeners() {
     state.zoomExp = -0.5 // Zoomed out for better overview
     state.manualMaxI = 128 // Reasonable default iterations
     updateDisplays()
+    if (nextEpochCallback) nextEpochCallback()
+  })
+
+  // Mobile controls
+  dom.togglePanelBtn.addEventListener('click', () => {
+    let isVisible = dom.controlsPanel.style.display !== 'none'
+    dom.controlsPanel.style.display = isVisible ? 'none' : 'block'
+    dom.togglePanelBtn.textContent = isVisible ? '⚙️' : '✕'
+  })
+
+  dom.zoomInBtn.addEventListener('click', () => {
+    state.zoomExp += 0.1 // Zoom in
+    if (state.autoAdjustIterations) {
+      updateIterationsForZoom(0.1)
+    }
+    if (nextEpochCallback) nextEpochCallback()
+  })
+
+  dom.zoomOutBtn.addEventListener('click', () => {
+    state.zoomExp -= 0.1 // Zoom out
+    if (state.autoAdjustIterations) {
+      updateIterationsForZoom(-0.1)
+    }
     if (nextEpochCallback) nextEpochCallback()
   })
 }
