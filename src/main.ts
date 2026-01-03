@@ -20,6 +20,7 @@ import {
   getMaxI,
   getZoomRate,
   updateIterationsForZoom,
+  ColorTheme,
 } from './storage.js'
 
 import {
@@ -139,6 +140,12 @@ gl.canvas.addEventListener('click', event => {
 
 // Keyboard controls for accessibility
 document.addEventListener('keydown', event => {
+  // Don't handle panning keys when form elements are focused
+  let activeElement = document.activeElement
+  if (activeElement && (activeElement.tagName === 'SELECT' || activeElement.tagName === 'INPUT')) {
+    return // Let browser handle form navigation
+  }
+
   let panAmount = getZoomRate() * 0.02 // Even smaller pan amount for precise control
 
   switch (event.key) {

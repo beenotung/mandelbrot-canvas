@@ -1,4 +1,9 @@
-import { state, getMaxI, ColorTheme, updateIterationsForZoom } from './storage.js'
+import {
+  state,
+  getMaxI,
+  ColorTheme,
+  updateIterationsForZoom,
+} from './storage.js'
 
 // Import functions that need to be called from event handlers
 let nextEpochCallback: () => void
