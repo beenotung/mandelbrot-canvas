@@ -2,6 +2,7 @@ console.log('git repo: https://github.com/beenotung/mandelbrot-canvas')
 
 import { gl, w, h } from './webgl.js'
 import * as webgl from './webgl.js'
+import './cli.js'
 
 import {
   state,
@@ -190,6 +191,10 @@ document.addEventListener('keydown', event => {
 initUIControls()
 setupEventListeners()
 updateDisplays()
+
+// Expose functions for CLI debugging
+;(window as any).updateDisplays = updateDisplays
+;(window as any).render = render
 
 // Initial render
 render()
