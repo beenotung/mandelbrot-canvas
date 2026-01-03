@@ -10,6 +10,7 @@ import {
   zoomUniformLocation,
   maxIterationsUniformLocation,
   showLinesUniformLocation,
+  colorThemeUniformLocation,
   w,
   h,
 } from './webgl.js'
@@ -66,6 +67,7 @@ function render() {
   gl.uniform1f(zoomUniformLocation, getZoomRate())
   gl.uniform1i(maxIterationsUniformLocation, getMaxI())
   gl.uniform1i(showLinesUniformLocation, state.isShowLine ? 1 : 0)
+  gl.uniform1i(colorThemeUniformLocation, state.colorTheme)
 
   // Clear and draw
   gl.clear(gl.COLOR_BUFFER_BIT)

@@ -117,6 +117,7 @@ export function setupEventListeners() {
   // Color theme select
   dom.colorThemeSelect.addEventListener('change', () => {
     state.colorTheme = parseInt(dom.colorThemeSelect.value) as ColorTheme
+    if (nextEpochCallback) nextEpochCallback()
   })
 
   // Show shortcuts checkbox

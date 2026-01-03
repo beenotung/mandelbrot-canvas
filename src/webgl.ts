@@ -97,6 +97,7 @@ uniform vec2 u_offset;
 uniform float u_zoom;
 uniform int u_maxIterations;
 uniform int u_showLines;
+uniform int u_colorTheme;
 
 varying vec2 v_uv;
 
@@ -136,7 +137,113 @@ void main() {
   if (t >= 1.0) {
     color = vec3(0.0);
   } else {
-    color = vec3(1.0 - t, 0.5 - t * 0.5, t * 0.8);
+    if (u_colorTheme == 0) {
+      // Original Red theme (red -> yellow -> white)
+      if (t <= 1.0/3.0) {
+        color = vec3(t * 3.0, 0.0, 0.0);
+      } else if (t <= 2.0/3.0) {
+        color = vec3(1.0, (t - 1.0/3.0) * 3.0, 0.0);
+      } else {
+        color = vec3(1.0, 1.0, (t - 2.0/3.0) * 3.0);
+      }
+    } else if (u_colorTheme == 1) {
+      // Vanilla Purple theme - smooth purple gradients
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(tt * 0.6, tt * 0.2, tt * 0.8);
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(0.6 + tt * 0.4, 0.2 + tt * 0.3, 0.8 + tt * 0.2);
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(1.0, 0.5 + tt * 0.5, 1.0);
+      }
+    } else if (u_colorTheme == 2) {
+      // Blue theme - clear gradients
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(0.0, tt * 0.4, tt * 0.8);
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(tt * 0.2, 0.4 + tt * 0.3, 0.8 + tt * 0.2);
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(0.2 + tt * 0.3, 0.7 + tt * 0.3, 1.0);
+      }
+    } else if (u_colorTheme == 3) {
+      // Green theme
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(0.0, tt * 0.6, 0.0);
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(tt * 0.4, 0.6 + tt * 0.4, tt * 0.2);
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(0.4 + tt * 0.6, 1.0, 0.2 + tt * 0.8);
+      }
+    } else if (u_colorTheme == 4) {
+      // Gold theme
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(tt * 0.8, tt * 0.4, 0.0);
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(0.8 + tt * 0.2, 0.4 + tt * 0.4, tt * 0.1);
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(1.0, 0.8 + tt * 0.2, tt * 0.2);
+      }
+    } else if (u_colorTheme == 5) {
+      // Ocean theme - deep blues and teals
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(0.0, tt * 0.2, tt * 0.5);
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(tt * 0.1, 0.2 + tt * 0.4, 0.5 + tt * 0.3);
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(0.1 + tt * 0.3, 0.6 + tt * 0.3, 0.8 + tt * 0.2);
+      }
+    } else if (u_colorTheme == 6) {
+      // Rainbow theme - spectrum colors
+      if (t <= 1.0/6.0) {
+        float tt = t * 6.0;
+        color = vec3(tt, 0.0, 1.0); // Purple to blue
+      } else if (t <= 2.0/6.0) {
+        float tt = (t - 1.0/6.0) * 6.0;
+        color = vec3(1.0, 0.0, 1.0 - tt); // Blue to cyan
+      } else if (t <= 3.0/6.0) {
+        float tt = (t - 2.0/6.0) * 6.0;
+        color = vec3(1.0, tt, 0.0); // Cyan to green
+      } else if (t <= 4.0/6.0) {
+        float tt = (t - 3.0/6.0) * 6.0;
+        color = vec3(1.0 - tt, 1.0, 0.0); // Green to yellow
+      } else if (t <= 5.0/6.0) {
+        float tt = (t - 4.0/6.0) * 6.0;
+        color = vec3(0.0, 1.0, tt); // Yellow to orange
+      } else {
+        float tt = (t - 5.0/6.0) * 6.0;
+        color = vec3(tt, 1.0 - tt * 0.5, 1.0); // Orange to red
+      }
+    } else if (u_colorTheme == 7) {
+      // Fire theme - bright flame colors
+      if (t <= 1.0/3.0) {
+        float tt = t * 3.0;
+        color = vec3(1.0, tt * 0.6, 0.0); // Bright orange
+      } else if (t <= 2.0/3.0) {
+        float tt = (t - 1.0/3.0) * 3.0;
+        color = vec3(1.0, 0.6 + tt * 0.4, tt * 0.8); // Orange to yellow
+      } else {
+        float tt = (t - 2.0/3.0) * 3.0;
+        color = vec3(1.0, 1.0, 0.8 + tt * 0.2); // Yellow to white
+      }
+    } else {
+      // Monochrome theme - greyscale
+      float grey = t * 0.8 + 0.2; // From dark to light grey
+      color = vec3(grey, grey, grey);
+    }
   }
 
   // Draw center lines if enabled
@@ -183,6 +290,10 @@ export let maxIterationsUniformLocation = gl.getUniformLocation(
 export let showLinesUniformLocation = gl.getUniformLocation(
   program,
   'u_showLines',
+)
+export let colorThemeUniformLocation = gl.getUniformLocation(
+  program,
+  'u_colorTheme',
 )
 
 // Create quad geometry (full-screen)

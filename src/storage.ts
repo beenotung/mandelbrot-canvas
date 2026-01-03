@@ -1,5 +1,5 @@
 // Color themes (0 = red, 1 = purple)
-export type ColorTheme = 0 | 1
+export type ColorTheme = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 // State with auto-persistence using Proxy
 export type State = {
