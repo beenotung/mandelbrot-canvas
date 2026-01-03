@@ -1,19 +1,7 @@
 console.log('git repo: https://github.com/beenotung/mandelbrot-canvas')
 
-import {
-  gl,
-  vaoExt,
-  program,
-  positionBuffer,
-  vao,
-  offsetUniformLocation,
-  zoomUniformLocation,
-  maxIterationsUniformLocation,
-  showLinesUniformLocation,
-  colorThemeUniformLocation,
-  w,
-  h,
-} from './webgl.js'
+import { gl, w, h } from './webgl.js'
+import * as webgl from './webgl.js'
 
 import {
   state,
@@ -64,15 +52,15 @@ function render() {
   if (isStop) return
 
   // Update uniforms
-  gl.uniform2f(offsetUniformLocation, state.offsetX, state.offsetY)
-  gl.uniform1f(zoomUniformLocation, getZoomRate())
-  gl.uniform1i(maxIterationsUniformLocation, getMaxI())
-  gl.uniform1i(showLinesUniformLocation, state.isShowLine ? 1 : 0)
-  gl.uniform1i(colorThemeUniformLocation, state.colorTheme)
+  gl.uniform2f(webgl.offsetUniformLocation, state.offsetX, state.offsetY)
+  gl.uniform1f(webgl.zoomUniformLocation, getZoomRate())
+  gl.uniform1i(webgl.maxIterationsUniformLocation, getMaxI())
+  gl.uniform1i(webgl.showLinesUniformLocation, state.isShowLine ? 1 : 0)
+  gl.uniform1i(webgl.colorThemeUniformLocation, state.colorTheme)
 
   // Clear and draw
   gl.clear(gl.COLOR_BUFFER_BIT)
-  if (vaoExt) vaoExt.bindVertexArrayOES(vao)
+  if (webgl.vaoExt) webgl.vaoExt.bindVertexArrayOES(webgl.vao)
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
   updateDisplays()
@@ -142,7 +130,10 @@ gl.canvas.addEventListener('click', event => {
 document.addEventListener('keydown', event => {
   // Don't handle panning keys when form elements are focused
   let activeElement = document.activeElement
-  if (activeElement && (activeElement.tagName === 'SELECT' || activeElement.tagName === 'INPUT')) {
+  if (
+    activeElement &&
+    (activeElement.tagName === 'SELECT' || activeElement.tagName === 'INPUT')
+  ) {
     return // Let browser handle form navigation
   }
 
