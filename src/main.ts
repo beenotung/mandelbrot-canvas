@@ -138,7 +138,7 @@ document.addEventListener('keydown', event => {
     return // Let browser handle form navigation
   }
 
-  let panAmount = getZoomRate() * 0.02 // Even smaller pan amount for precise control
+  let panAmount = 0.1 / getZoomRate() // Move by 10% of visible area
 
   switch (event.key) {
     case 'ArrowLeft':
